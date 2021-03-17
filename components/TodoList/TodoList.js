@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, Text, View, TouchableOpacity, TextInput, Button } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Button
+} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const TodoList = () => {
   const [text, setText] = useState('')
@@ -35,9 +44,15 @@ const TodoList = () => {
 
   const renderItems = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => handlePress(item?.key)}>
+      <TouchableOpacity>
         <View style={styles.item}>
           <Text style={styles.title}>{item?.title}</Text>
+          <MaterialIcons
+            color="tomato"
+            style={styles.deleteIcon}
+            name="delete-outline" size={24}
+            onPress={() => handlePress(item?.key)}
+          />
         </View>
       </TouchableOpacity>
     )
@@ -57,7 +72,7 @@ const TodoList = () => {
       <FlatList
         data={list}
         renderItem={renderItems}
-        keyExtractor={item => item?.key?.toString()}
+        keyExtractor={(item, i) => `${item?.tite}-${item?.key}-${i}`}
       />
     </View>
   );
@@ -69,20 +84,31 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   item: {
-    marginVertical: 10
+    display: 'flex',
+    borderRadius: 5,
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'tomato',
+    borderStyle: 'dashed',
+    justifyContent: 'space-between'
   },
   title: {
     padding: 15,
-    borderRadius: 5,
     color: 'tomato',
-    border: '1px dashed tomato',
   },
   addTaskInput: {
     padding: 10,
     marginBottom: 5,
-    border: '1px solid tomato'
+    borderWidth: 1,
+    borderColor: 'tomato',
+    borderStyle: 'dashed',
   },
   addTaskContainer: {
     marginBottom: 20,
+  },
+  deleteIcon: {
+    padding: 10
   }
 });

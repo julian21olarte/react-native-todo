@@ -28,6 +28,5 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: 'tomato',
     color: 'white',
-    boxShadow: '1px 2px 5px solid lightgrey'
   }
 });
